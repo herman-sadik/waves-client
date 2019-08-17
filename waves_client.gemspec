@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = 'An API wrapper for Waves platform'
   spec.description   = spec.summary
-  spec.homepage      = 'https://github.com/herman-sadik/waves-client'
+  spec.homepage      = 'https://github.com/herman-sadik/waves_client'
   spec.license       = 'MIT'
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
