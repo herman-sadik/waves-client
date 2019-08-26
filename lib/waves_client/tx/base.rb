@@ -15,7 +15,7 @@ module WavesClient
       include WavesClient::Tx::TxIds
       include WavesClient::Tx::Defaults
 
-      attr_accessor :type, :fee, :timestamp, :seed, :sender
+      attr_accessor :type, :fee, :timestamp, :seed, :sender, :feeAssetId, :minSponsoredAssetFee
 
       # def initialize(seed)
       #   @seed = seed
@@ -40,7 +40,6 @@ module WavesClient
       def payload
         Oj.dump self, indent: 2, mode: :rails
       end
-
     end
   end
 end

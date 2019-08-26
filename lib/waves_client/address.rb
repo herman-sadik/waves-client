@@ -59,5 +59,13 @@ module WavesClient
     def create
       post
     end
+
+    # Remove the account with address {address} from the wallet
+    #
+    # DELETE /addresses/{address}
+    # http://54.38.54.135:6869/api-docs/index.html#!/addresses/deleteAddress_1
+    def delete(address)
+      delete(path: 'addresses/:address', address: address)
+    end
   end
 end

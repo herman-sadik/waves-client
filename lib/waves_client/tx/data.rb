@@ -20,7 +20,7 @@ module WavesClient
       private
 
       def default_fee
-        self.fee = DEFAULT_TX_FEE
+        self.fee ||= DEFAULT_TX_FEE
       end
 
       def data_array_of_hashes

@@ -21,7 +21,7 @@ module WavesClient
       end
 
       def default_fee
-        self.fee = DEFAULT_TX_FEE
+        self.fee ||= DEFAULT_TX_FEE
       end
     end
   end

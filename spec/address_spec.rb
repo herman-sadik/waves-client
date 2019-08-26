@@ -79,5 +79,11 @@ RSpec.describe WavesClient::Address do
     end
   end
 
-  it '#create'
+  describe '#create response' do
+
+  end
+
+  describe '#delete response' do
+
+  end
 end
