@@ -64,7 +64,7 @@ module WavesClient
     #
     # DELETE /addresses/{address}
     # http://54.38.54.135:6869/api-docs/index.html#!/addresses/deleteAddress_1
-    def delete(address)
+    def destroy(address)
       delete(path: 'addresses/:address', address: address)
     end
   end
