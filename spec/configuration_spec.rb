@@ -1,4 +1,25 @@
-# # frozen_string_literal: true
+# frozen_string_literal: true
+
+RSpec.describe WavesClient::Configuration do
+  subject(:config) { described_class.config }
+
+  it { described_class.ancestors.include?(Dry::Configurable) }
+
+  describe 'default' do
+    it { expect(config.node.url).to eq('https://testnodes.wavesnodes.com') }
+    it { expect(config.node.api_key).to be_blank }
+  end
+
+  describe 'overwritten' do
+    before do
+      described_class.config.node.url = 'http://localhost:6869'
+      described_class.config.node.api_key = 'waves-private-node'
+    end
+
+    it { expect(config.node.url).to eq('http://localhost:6869') }
+    it { expect(config.node.api_key).to eq('waves-private-node') }
+  end
+end
 
 # RSpec.describe WavesClient::Configuration, :skip_default_cfg do
 #   before(:all) do

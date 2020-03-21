@@ -4,7 +4,7 @@ require 'api_struct'
 require 'active_model'
 require 'base58'
 
-# require 'waves_client/configuration'
+require 'waves_client/configuration'
 require 'waves_client/api_struct_settings'
 require 'waves_client/version'
 require 'waves_client/crypto'
