@@ -40,7 +40,7 @@ module ApiStruct
       define_method http_method do |*args, **options|
         options[:params] = default_params.merge(options[:params] || {})
 
-        puts "URL WILL BE: " + build_url(args, options)
+        puts 'URL WILL BE: ' + build_url(args, options) + ' for ' + http_method + ' and opts' +  options.inspect
         wrap client.send(http_method, build_url(args, options), options)
       rescue HTTP::ConnectionError => e
         failure(body: e.message, status: :not_connected)
@@ -68,7 +68,7 @@ module ApiStruct
     def initialize
       client_headers = headers || DEFAULT_HEADERS
       @client = HTTP::Client.new(headers: client_headers)
-      puts("CLIENT: ", @client.inspect)
+      puts('CLIENT: ', @client.inspect)
     end
 
     private
@@ -81,13 +81,13 @@ module ApiStruct
       body = response.body.to_s
       result = !body.empty? ? JSON.parse(body, symbolize_names: true) : nil
 
-      puts("SUCCESS RESULT: ", result)
+      puts('SUCCESS RESULT: ', result)
       Dry::Monads::Success(result)
     end
 
     def failure(response)
       result = ApiStruct::Errors::Client.new(response)
-      puts("FAILURE RESULT: ", result, response)
+      puts('FAILURE RESULT: ', result, response)
       Dry::Monads::Failure(result)
     end
 
