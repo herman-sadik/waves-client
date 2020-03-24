@@ -2,16 +2,16 @@
 
 module WavesClient
   class Transaction < ApiStruct::Client
-    def default_path
-      'transactions'
-    end
+    # def default_path
+    #   'transactions'
+    # end
 
     # Sign a transaction with the sender's private key
     #
     # POST /transactions/sign
     # http://54.38.54.135:6869/api-docs/index.html#!/transactions/sign_3
     def sign(data)
-      post(path: 'sign', body: data)
+      post(path: 'transactions/sign', body: data)
     end
 
     def signed_data(data)
