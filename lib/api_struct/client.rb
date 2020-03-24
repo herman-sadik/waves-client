@@ -40,7 +40,9 @@ module ApiStruct
       define_method http_method do |*args, **options|
         options[:params] = default_params.merge(options[:params] || {})
 
-        puts 'URL WILL BE: ' + build_url(args, options) + ' for ' + http_method + ' and opts' +  options.inspect
+        puts "\nURL WILL BE: " + build_url(args, options) + ' for ' + http_method + ' and opts'
+        puts options.inspect
+        
         wrap client.send(http_method, build_url(args, options), options)
       rescue HTTP::ConnectionError => e
         failure(body: e.message, status: :not_connected)
