@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe WavesClient::Configuration do
+RSpec.describe WavesClient::Settings do
   subject(:config) { described_class.config }
 
   it { described_class.ancestors.include?(Dry::Configurable) }

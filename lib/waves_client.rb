@@ -1,11 +1,25 @@
 # frozen_String_literal: true
 
-require 'api_struct'
+require 'http'
+require 'dry/monads/result'
+require 'dry-configurable'
+require 'dry/inflector'
+require 'json'
+require 'hashie'
+
+# require_relative 'api_struct/settings'
+require_relative 'api_struct/concerns/underscore'
+require_relative 'api_struct/extensions/api_client'
+require_relative 'api_struct/extensions/dry_monads'
+require_relative 'api_struct/errors/client'
+require_relative 'api_struct/client'
+
+
 require 'active_model'
 require 'base58'
 
-require 'waves_client/configuration'
-require 'waves_client/api_struct_settings'
+require 'waves_client/settings'
+# require 'waves_client/api_struct_settings'
 require 'waves_client/version'
 require 'waves_client/crypto'
 
@@ -22,14 +36,4 @@ require 'waves_client/tx/data'
 
 module WavesClient
   class Error < StandardError; end
-
-  # class << self
-  #   attr_accessor :configuration
-  # end
-
-  # def self.configure
-  #   self.configuration ||= Configuration.new
-  #   yield(configuration)
-  #   self.configuration.configure_api_struct!
-  # end
 end

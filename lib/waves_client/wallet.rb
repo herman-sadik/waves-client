@@ -2,7 +2,9 @@
 
 module WavesClient
   class Wallet < ApiStruct::Client
-    api :wallet
+    def default_path
+      'wallet'
+    end
 
     # Export wallet seed (of node)
     # @return seed - base58 string

@@ -2,7 +2,9 @@
 
 module WavesClient
   class Transaction < ApiStruct::Client
-    api :transactions
+    def default_path
+      'transactions'
+    end
 
     # Sign a transaction with the sender's private key
     #
