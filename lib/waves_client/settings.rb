@@ -4,12 +4,12 @@ module WavesClient
   class Settings
     extend Dry::Configurable
 
-    setting :endpoints, {}
-
     setting :node do
-      setting :url, 'https://testnodes.wavesnodes.com'
-      setting :api_key, ''
+      setting :url, 'http://localhost:6869'
+      setting :api_key, 'waves-private-node'
       setting :params, {}
     end
+
+    setting :debug, false
   end
 end

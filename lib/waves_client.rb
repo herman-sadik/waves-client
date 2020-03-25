@@ -6,20 +6,16 @@ require 'dry-configurable'
 require 'dry/inflector'
 require 'json'
 require 'hashie'
-
-# require_relative 'api_struct/settings'
-require_relative 'api_struct/concerns/underscore'
-require_relative 'api_struct/extensions/api_client'
-require_relative 'api_struct/extensions/dry_monads'
-require_relative 'api_struct/errors/client'
-require_relative 'api_struct/client'
-
-
 require 'active_model'
 require 'base58'
 
+require 'api_struct/concerns/underscore'
+require 'api_struct/extensions/api_client'
+require 'api_struct/extensions/dry_monads'
+require 'api_struct/errors/client'
+require 'api_struct/client'
+
 require 'waves_client/settings'
-# require 'waves_client/api_struct_settings'
 require 'waves_client/version'
 require 'waves_client/crypto'
 

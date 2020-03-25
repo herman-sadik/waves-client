@@ -11,14 +11,22 @@ module ApiStruct
 
     attr_reader :client
 
+    def config
+      ::WavesClient::Settings.config
+    end
+
     def api_root
-      # WavesClient::Configuration.config.node.url
-      puts('::WavesClient::Settings.config.node[:url] ' + ::WavesClient::Settings.config.node[:url])
-      ::WavesClient::Settings.config.node[:url]
+      value = config.node[:url]
+      puts "[DEBUG] #{__method__}: #{value}" if config.debug
+
+      value
     end
 
     def default_params
-      ::WavesClient::Settings.config.node[:params] || {}
+      value = config.node[:params] || {}
+      puts "[DEBUG] #{__method__}: #{value}" if config.debug
+
+      value
     end
 
     #
@@ -29,9 +37,12 @@ module ApiStruct
     # end
 
     def headers
-      DEFAULT_HEADERS.merge(
-        'X-API-Key': ::WavesClient::Settings.config.node[:api_key]
+      value = DEFAULT_HEADERS.merge(
+        'X-API-Key': config.node[:api_key]
       )
+      puts "[DEBUG] #{__method__}: #{value}" if config.debug
+
+      value
     end
 
     HTTP_METHODS = %i[get post patch put delete].freeze
@@ -39,38 +50,21 @@ module ApiStruct
     HTTP_METHODS.each do |http_method|
       define_method http_method do |*args, **options|
         options[:params] = default_params.merge(options[:params] || {})
+        url = remove_double_slashes(build_url(args, options)).to_s
 
-        puts "\nURL WILL BE: " + build_url(args, options) + ' for ' + http_method + ' and opts'
-        puts options.inspect
-        
-        wrap client.send(http_method, build_url(args, options), options)
+        debug_block_http_method(http_method, url, options) if config.debug
+
+        wrap client.send(http_method, url, options)
       rescue HTTP::ConnectionError => e
         failure(body: e.message, status: :not_connected)
       end
     end
 
-    # def get(*args, **options)
-    #   options[:params] = default_params.merge(options[:params] || {})
-    #   wrap client.send(:get, build_url(args, options), options)
-
-    # rescue HTTP::ConnectionError => e
-    #   failure(body: e.message, status: :not_connected)
-    # end
-
-    # def post(*args, **options)
-    #   puts(args, options)
-
-    #   options[:params] = default_params.merge(options[:params] || {})
-    #   wrap client.send(:post, build_url(args, options), options)
-
-    # rescue HTTP::ConnectionError => e
-    #   failure(body: e.message, status: :not_connected)
-    # end
-
     def initialize
       client_headers = headers || DEFAULT_HEADERS
       @client = HTTP::Client.new(headers: client_headers)
-      puts('CLIENT: ', @client.inspect)
+
+      puts('[DEBUG] CLIENT: ', @client.inspect) if config.debug
     end
 
     private
@@ -83,13 +77,14 @@ module ApiStruct
       body = response.body.to_s
       result = !body.empty? ? JSON.parse(body, symbolize_names: true) : nil
 
-      puts('SUCCESS RESULT: ', result)
+      puts("[DEBUG] #{__method__}: ", result, response) if config.debug
       Dry::Monads::Success(result)
     end
 
     def failure(response)
       result = ApiStruct::Errors::Client.new(response)
-      puts('FAILURE RESULT: ', result, response)
+      puts("[DEBUG] #{__method__}: ", result, response) if config.debug
+
       Dry::Monads::Failure(result)
     end
 
@@ -97,16 +92,29 @@ module ApiStruct
       args.first.to_s
     end
 
+    def debug_block_http_method(http_method, url, options)
+      puts "\n [DEBUG] #{http_method} ------------------------------- "
+      puts "\t URL: #{url}"
+      puts "\t Options: #{options.inspect}"
+      puts " ------------------------------------------------------ \n"
+    end
+
+    def remove_double_slashes(address)
+      url = URI.parse(address)
+      url.path.gsub! %r{/+}, '/'
+      url.to_s
+    end
+
     def build_url(args, options)
       suffix = to_path(args)
       prefix = to_path(options.delete(:prefix))
       path = to_path(options.delete(:path) || default_path)
-
       replace_optional_params(to_path(api_root, prefix, path, suffix), options)
     end
 
     def to_path(*args)
-      Array(args).reject { |o| o.respond_to?(:empty?) ? o.empty? : !o }.join('/')
+      Array(args).reject { |o| o.respond_to?(:empty?) ? o.empty? : !o }
+                 .join('/')
     end
 
     def replace_optional_params(url, options)
