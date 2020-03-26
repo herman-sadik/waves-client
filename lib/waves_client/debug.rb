@@ -2,7 +2,9 @@
 
 module WavesClient
   class Debug < ApiStruct::Client
-    api :debug
+    def default_path
+      'debug'
+    end
 
     # All info you need to debug
     #

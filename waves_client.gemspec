@@ -46,9 +46,17 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rake', '~> 12.3.3'
   spec.add_development_dependency 'rspec', '~> 3.8'
   spec.add_development_dependency 'rubocop', '~> 0.74.0'
+  spec.add_development_dependency 'rb-readline'
+
+
+  spec.add_dependency 'dry-monads', '~> 1'
+  spec.add_dependency 'dry-inflector'
+  spec.add_dependency 'http'
+  spec.add_dependency 'hashie'
+
 
   spec.add_dependency 'activemodel'
-  spec.add_dependency 'api_struct', '~> 1.0.5'
+  # spec.add_dependency 'api_struct', '~> 1.0.5', 'github: herman-sadik/api_struct'
   spec.add_dependency 'base58', '~> 0.2.3'
   spec.add_dependency 'blake2b', '~> 0.10.0'
   spec.add_dependency 'digest-sha3', '~> 1.1.0'
@@ -59,4 +67,20 @@ Gem::Specification.new do |spec|
   # @TODO - `brew install libsodium`
   #
   spec.add_dependency 'rbnacl', '~> 7.0.0'
+
+
+
+
+
+
+  
+
+  # spec.add_development_dependency 'bundler', '~> 1.14'
+  # spec.add_development_dependency 'pry-byebug', '~> 3.5', '>= 3.5.1'
+  # spec.add_development_dependency 'rake', '~> 12.3'
+  # spec.add_development_dependency 'rspec', '~> 3.7'
+  # spec.add_development_dependency 'rubocop', '~> 0.52.0'
+  # spec.add_development_dependency 'vcr', '~> 3.0.3'
+  # spec.add_development_dependency 'webmock', '~> 3.2', '>= 3.2.1'
+  # spec.add_development_dependency 'ffaker', '~> 2.7'
 end

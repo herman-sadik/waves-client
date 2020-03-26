@@ -2,7 +2,10 @@
 
 module WavesClient
   class Asset < ApiStruct::Client
-    api :assets
+
+    def default_path
+      'assets'
+    end
 
     # Provides detailed information about given asset
     #

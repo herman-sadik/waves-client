@@ -3,10 +3,10 @@
 require 'dotenv/load'
 
 require 'bundler/setup'
-require 'api_struct'
-require 'support/api_struct'
+
 require 'support/factory_bot'
 require 'waves_client'
+require 'support/settings'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -18,5 +18,4 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
-
 end

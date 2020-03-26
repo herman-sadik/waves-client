@@ -35,8 +35,8 @@ RSpec.describe WavesClient::Transaction do
                            .signed_data(payload)
 
           puts "2. #{signed_payload}\n\n"
-          result         = subject
-                           .broadcast(signed_payload.to_s)
+          result = subject
+                   .broadcast(signed_payload.to_s)
 
           puts result.inspect
 

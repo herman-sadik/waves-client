@@ -2,7 +2,9 @@
 
 module WavesClient
   class Leasing < ApiStruct::Client
-    api :leasing
+    def default_path
+      'leasing'
+    end
 
     # Get all active leases for an address
     #

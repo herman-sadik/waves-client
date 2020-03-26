@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'byebug'
 
 RSpec.describe WavesClient::Transaction do
   describe 'VALID' do

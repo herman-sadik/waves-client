@@ -2,7 +2,10 @@
 
 module WavesClient
   class Address < ApiStruct::Client
-    api :addresses
+
+    def default_path
+      'addresses'
+    end
 
     # Get wallet accounts addresses
     #
