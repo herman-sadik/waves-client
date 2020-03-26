@@ -20,6 +20,16 @@ Or install it yourself as:
 
     $ gem install waves_client
 
+## Configuration
+Create new `config/initializers/waves_client.rb` file in your rails app to override default settings
+
+```ruby
+WavesClient::Settings.config.node.url = 'http://localhost:6869'
+WavesClient::Settings.config.node.api_key = 'waves-private-node'
+WavesClient::Settings.config.node.params = {}
+WavesClient::Settings.config.debug = false
+```
+
 ## Usage
 
 TODO: Write usage instructions here
@@ -29,6 +39,10 @@ TODO: Write usage instructions here
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+
+## TODO
+- Fix rspec test
+- Create usage section in Readme.md
 
 ## Contributing
 
